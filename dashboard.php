@@ -54,3 +54,12 @@ echo "</table>";
 // Close the database connection
 pg_close($conn);
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <button type="button"><a href="storepage.php">STORE</a></button>
+</head>
+<body>
+    
+</body>
+</html>

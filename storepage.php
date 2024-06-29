@@ -61,6 +61,7 @@ $result = pg_query($conn, $query);
       </div>
       <?php } ?>
     </table>
+    <button type="button"><a href="dashboard.php">BUY   </a></button>
     <script src="script.js"></script>
   </body>
 

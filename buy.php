@@ -23,11 +23,11 @@ $gameid = $_GET['gameid'];
 $userid = $_SESSION['userid'];
 
 // Query to add game to library
-$query = "INSERT INTO library (userid, gameid, purchasedate) VALUES ($userid, $gameid, NOW())";
+$query = "INSERT INTO \"Library\" (userid, gameid, purchasedate) VALUES ($userid, $gameid, NOW())";
 pg_query($conn, $query);
 
 // Close database connection
 pg_close($conn);
-
+header('Location: dashboard.php');
 exit;
 ?>
