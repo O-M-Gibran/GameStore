@@ -44,9 +44,8 @@ pg_close($conn);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <button type="button"><a href="buy.php?gameid=<?php echo $row['gameid'];?>">BUY   </a></button>
 </head>
 <body>
-    
+    <button type="button"><a href="buy.php?gameid=<?php echo $row['gameid'];?>">BUY</a></button>
 </body>
 </html>
