@@ -4,19 +4,7 @@ if (isset($_SESSION["userid"])) {
     unset($error); // Unset the $error variable if user is already logged in
 }
 
-// Configuration
-$db_host = 'localhost';
-$db_username = 'postgres';
-$db_password = 'stegoceratops745';
-$db_name = 'postgres';
-
-// Create a connection to the database
-$conn = pg_connect("host=$db_host port=5432 dbname=$db_name user=$db_username password=$db_password");
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: ". pg_last_error());
-}
+require_once 'connection.php';
 
 // Login form submission handler
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,10 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if user exists
     if (pg_num_rows($result) > 0) {
         $user_data = pg_fetch_assoc($result);
-        // Login successful, redirect to dashboard or whatever
-        $_SESSION["userid"] = $user_data["userid"];
-        header("Location: dashboard.php");
-        exit;
+        if ($username == 'admin' && $password == '12345') {
+            // Admin login, redirect to admin.php
+            $_SESSION["userid"] = $user_data["userid"];
+            header("Location: admin.php");
+            exit;
+        } else {
+            // Regular user login, redirect to dashboard.php
+            $_SESSION["userid"] = $user_data["userid"];
+            header("Location: dashboard.php");
+            exit;
+        }
     } else {
         $error = "Invalid username or password";
     }

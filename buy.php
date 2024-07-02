@@ -1,21 +1,7 @@
 <?php
 session_start();
-
-// Configuration
-$db_host = 'localhost';
-$db_username = 'postgres';
-$db_password = 'stegoceratops745';
-$db_name = 'postgres';
-
-// Connect to database
-$conn = pg_connect("host=$db_host port=5432 dbname=$db_name user=$db_username password=$db_password");
-
-// Check connection
-if (!$conn) {
-    echo "Error: Unable to connect to database";
-    exit;
-}
-
+require_once 'connection.php';
+// Now you can use the $conn variable to interact with the database
 // Get game ID from URL parameter
 if (isset($_GET['gameid'])) {
     $gameid = $_GET['gameid'];
@@ -30,6 +16,16 @@ if (isset($_SESSION['userid'])) {
     echo "Error: User ID is missing";
     exit;
 }
+
+// Check if the user already owns the game
+$query = "SELECT * FROM \"Library\" WHERE userid = $userid AND gameid = $gameid";
+$result = pg_query($conn, $query);
+
+if (pg_num_rows($result) > 0) {
+    echo "You already own this game!";
+    pg_close($conn);
+    exit;
+} 
 
 // Retrieve game price from database
 $result = pg_query($conn, "SELECT price FROM game WHERE gameid=$gameid");
@@ -61,6 +57,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+    <div class="container">
+      <a class="navbar-brand">(-_-)</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="dashboard.php">Library</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="storepage.php">Store</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="transaction.php">Transactions</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="logout.php">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 <div class=" jumbotron full-color bg-dark">
 <div class="container bg-dark text-light mt-5">
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?gameid=<?php echo $gameid; ?>" method="post">

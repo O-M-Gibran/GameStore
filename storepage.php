@@ -26,10 +26,36 @@ $result = pg_query($conn, $query);
       }
     </style>
 </head>
-<body>
-  <div class="jumbotron vertical-center bg-dark">
-    <div class="container d-flex justify-content-center ">
-    <a class="btn btn-danger" href="dashboard.php">LIBRARY</a>
+<body class="bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+    <div class="container">
+      <a class="navbar-brand">(-_-)</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="dashboard.php">Library</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="storepage.php">Store</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="transaction.php">Transactions</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="logout.php">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- <div class="jumbotron vertical-center bg-dark"> -->
+    <div class="container d-flex justify-content-center mt-5">
       <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
         <table class="table table-striped table-borderless table-dark">
           <thead>
@@ -53,7 +79,7 @@ $result = pg_query($conn, $query);
         </table>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </body>

@@ -5,12 +5,12 @@ require_once 'connection.php';
 // Get the current user's ID
 $current_user_id = $_SESSION["userid"];
 
-// Query to retrieve the user's library
-$query = "SELECT l.libraryid, g.title, u.username, l.purchasedate, g.gameid, g.description, g.developer, g.publisher, g.releasedate
-           FROM \"Library\" l
-           JOIN game g ON l.gameid = g.gameid
-           JOIN \"User\" u ON l.userid = u.userid
-           WHERE l.userid = $current_user_id";
+// Query to retrieve the user's transactions
+$query = "SELECT t.transactionid, g.title, u.username, t.purchasedate, t.amountpaid, t.paymentmethod
+           FROM \"Transaction\" t
+           JOIN game g ON t.gameid = g.gameid
+           JOIN \"User\" u ON t.userid = u.userid
+           WHERE t.userid = $current_user_id";
 
 // Execute the query
 $result = pg_query($conn, $query);
@@ -25,11 +25,11 @@ if (!$result) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Library</title>
+    <title>My Transactions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <style>
-    .hasil-tabel:hover{
+   .hasil-tabel:hover{
         cursor: pointer;
         transform: scale(1.05);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -47,13 +47,13 @@ if (!$result) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="dashboard.php">Library</a>
+            <a class="nav-link active" aria-current="page" href="dashboard.php">Library</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="storepage.php">Store</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="transaction.php">Transactions</a>
+            <a class="nav-link" href="transaction.php">Transactions</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -65,7 +65,7 @@ if (!$result) {
     </div>
   </nav>
   <div class="jumbotron bg-dark mt-5">
-  <div class="container"><h1 class="text-light">Library</h1></div>
+  <div class="container"><h1 class="text-light">My Transactions</h1></div>
   </div>
     <div class="container d-flex justify-content-left">
       <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
@@ -73,31 +73,16 @@ if (!$result) {
           <tr>
             <th>Game Title</th>
             <th>Purchase Date</th>
+            <th>Amount Paid</th>
+            <th>Payment Method</th>
           </tr>
           <?php while ($row = pg_fetch_assoc($result)) {?>
-          <tr class="hasil-tabel" data-bs-toggle="modal" data-bs-target="#gameModal-<?php echo $row['gameid'];?>">
+          <tr>
             <td><?= $row['title']?></td>
             <td><?= $row['purchasedate']?></td>
+            <td><?= $row['amountpaid']?></td>
+            <td><?= $row['paymentmethod']?></td>
           </tr>
-
-          <!-- Modal -->
-          <div class="modal fade" id="gameModal-<?php echo $row['gameid'];?>">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content bg-dark text-light">
-                <div class="modal-header">
-                  <h5 class="modal-title"><?= $row['title']?></h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p><strong>Developer:</strong> <?= $row['developer']?></p>
-                  <p><strong>Publisher:</strong> <?= $row['publisher']?></p>
-                  <p><strong>Release Date:</strong> <?= $row['releasedate']?></p>
-                  <p><strong>Description:</strong> <?= $row['description']?></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <?php }?>
         </table>
       </div>

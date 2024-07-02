@@ -4,3 +4,11 @@ for (const tableRow of tableRows) {
     location.href = this.dataset.href.replace('storepage.php', 'game.php');
   });
 }
+    document.addEventListener("DOMContentLoaded", function() {
+      const rows = document.querySelectorAll('.hasil-tabel');
+      rows.forEach(function(row) {
+        row.addEventListener('click', function() {
+          window.location.href = this.getAttribute('data-href');
+        });
+      });
+    });

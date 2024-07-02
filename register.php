@@ -1,18 +1,6 @@
 <?php
 session_start();
-// Configuration
-$db_host = 'localhost';
-$db_username = 'postgres';
-$db_password = 'stegoceratops745';
-$db_name = 'postgres';
-// Connect to the database
-$conn = pg_connect("host=$db_host port=5432 dbname=$db_name user=$db_username password=$db_password");
-
-// Check connection
-if (!$conn) {
-  echo "An error occurred.\n";
-  exit;
-}
+require_once 'connection.php';
 
 // Registration form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -1,12 +1,6 @@
 <?php
 session_start();
-// Configuration
-$db_host = 'localhost';
-$db_username = 'postgres';
-$db_password = 'stegoceratops745';
-$db_name = 'postgres';
-// Connect to the database
-$conn = pg_connect("host=$db_host port=5432 dbname=$db_name user=$db_username password=$db_password");
+require_once 'connection.php';
 $query = "SELECT * FROM game";
 $result = pg_query($conn, $query);
 
@@ -27,11 +21,6 @@ while ($row = pg_fetch_assoc($result)) {
   echo "</tr>";
 }
 echo "</table>";
-// Check connection
-if (!$conn) {
-  echo "An error occurred.\n";
-  exit;
-}
 
 if($_SERVER['REQUEST_METHOD']== "POST") {
     $title = $_POST["title"];
@@ -48,6 +37,8 @@ if($_SERVER['REQUEST_METHOD']== "POST") {
     $result = pg_query_params($conn, $query, array($title, $description, $releasedate, $developer, $publisher, $platform, $price, $rating, $review));
     if ($result) {
         $success = "Account created successfully!";
+        header("Location: logout.php"); // Redirect to logout.php
+        exit;
     } else {
         $error = "Registration failed";
     }
@@ -63,22 +54,22 @@ if($_SERVER['REQUEST_METHOD']== "POST") {
         <label for="title">title:</label>
         <input type="text" id="title" name="title"><br><br>
         <label for="descrtiption">description:</label>
-        <input type="description" id="description" name="description"><br><br>
+        <input type="text" id="description" name="description"><br><br>
         <label for="releasedate">releasedate:</label>
-        <input type="releasedate" id="releasedate" name="releasedate"><br><br>
+        <input type="date" id="releasedate" name="releasedate"><br><br>
         <label for="developer">developer:</label>
-        <input type="developer" id="developer" name="developer"><br><br>
+        <input type="text" id="developer" name="developer"><br><br>
         <label for="publisher">publisher:</label>
-        <input type="publisher" id="publisher" name="publisher"><br><br>    
+        <input type="text" id="publisher" name="publisher"><br><br>    
         <label for="platform">platform:</label>
-        <input type="platform" id="platform" name="platform"><br><br>
+        <input type="text" id="platform" name="platform"><br><br>
         <label for="price">price:</label>
-        <input type="price" id="price" name="price"><br><br>
+        <input type="number" id="price" name="price"><br><br>
         <label for="rating">rating:</label>
-        <input type="rating" id="rating" name="rating"><br><br>
+        <input type="number" id="rating" name="rating"><br><br>
         <label for="review">review:</label>
-        <input type="review" id="review" name="review"><br><br>
-        <input type="submit" value="Login">
+        <input type="text" id="review" name="review"><br><br>
+        <input type="submit" value="Submit">
     </form>
 </head>
 <body>
