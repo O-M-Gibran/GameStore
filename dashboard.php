@@ -14,11 +14,8 @@ if (!$conn) {
   exit;
 }
 
-
-
 // Get the current user's ID
 $current_user_id = $_SESSION["userid"];
-echo $current_user_id;
 
 // Query to retrieve the user's library
 $query = "SELECT l.libraryid, g.title, u.username, l.purchasedate
@@ -35,31 +32,47 @@ if (!$result) {
   echo "An error occurred.\n";
   exit;
 }
-
-// Display the user's library
-echo "<h1>My Library</h1>";
-echo "<table>";
-echo "<tr><th>Game Title</th><th>Username</th><th>Purchase Date</th></tr>";
-
-while ($row = pg_fetch_assoc($result)) {
-  echo "<tr>";
-  echo "<td>". $row['title']. "</td>";
-  echo "<td>". $row['username']. "</td>";
-  echo "<td>". $row['purchasedate']. "</td>";
-  echo "</tr>";
-}
-
-echo "</table>";
-
-// Close the database connection
-pg_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <button type="button"><a href="storepage.php">STORE</a></button>
+    <title>My Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+  <div class="jumbotron vertical-center bg-dark">
+    <div class="container d-flex justify-content-center ">
+      <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
+        <div class="row">
+          <div class="col-12">
+            <h1>My Library</h1>
+            <a href="storepage.php" class="btn btn-primary">STORE</a>
+          </div>
+        </div>
+        <table class="table table-striped table-borderless table-dark">
+          <tr>
+            <th>Game Title</th>
+            <th>Username</th>
+            <th>Purchase Date</th>
+          </tr>
+          <?php while ($row = pg_fetch_assoc($result)) { ?>
+          <tr>
+            <td><?= $row['title'] ?></td>
+            <td><?= $row['username'] ?></td>
+            <td><?= $row['purchasedate'] ?></td>
+          </tr>
+          <?php } ?>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+// Close the database connection
+pg_close($conn);
+?>
