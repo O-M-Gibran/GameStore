@@ -48,7 +48,7 @@ if (!$result) {
         <div class="row">
           <div class="col-12">
             <h1>My Library</h1>
-            <a href="storepage.php" class="btn btn-primary">STORE</a>
+            <a href="storepage.php" class="btn btn-danger">STORE</a>
           </div>
         </div>
         <table class="table table-striped table-borderless table-dark">

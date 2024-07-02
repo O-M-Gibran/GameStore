@@ -51,26 +51,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="jumbotron vertical-center bg-dark">
         <div class="container d-flex justify-content-center ">
-        <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
-        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-            <h1>Login</h1>
-            <!-- <div class="col-6"> -->
-            <label for="username" class="form-label" >Username:</label>
-            <input type="text" class="form-control" id="username" name="username"><br><br>
-            <!-- </div> -->
-            <!-- <div class="col-6"> -->
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" id="password" name="password"><br><br>
-            <input type="submit" value="Login">
-            <!-- </div> -->
-            <?php if (isset($error)):?>
-            <p style="color: red;"><?php echo $error;?></p>
-            <?php endif;?>
+            <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
+            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+                <h1>Login</h1>
+                <!-- <div class="col-6"> -->
+                <label for="username" class="form-label" >Username:</label>
+                <input type="text" class="form-control" id="username" name="username"><br><br>
+                <!-- </div> -->
+                <!-- <div class="col-6"> -->
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" name="password"><br><br>
+                <input class="btn btn-danger" type="submit" value="Login">
+                <!-- </div> -->
+                <?php if (isset($error)):?>
+                <p style="color: red;"><?php echo $error;?></p>
+                <?php endif;?>
 
-            <p>Don't have an account? <a href="register.php">Create one now!</a></p>
-        </form>
+                <p>Don't have an account? <a class="btn btn-danger" href="register.php">Create one now!</a></p>
+            </form>
 
-        </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

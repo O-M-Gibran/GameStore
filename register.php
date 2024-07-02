@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" id="password" name="password"><br><br>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email"><br><br>
-                    <input type="submit" value="Register">
+                    <input class="btn btn-danger" type="submit" value="Register">
                 </form>
 
                 <?php if (isset($error)):?>
@@ -78,8 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endif;?>
 
                 <?php if (isset($success)):?>
-                    <p style="color: green;"><?php echo $success;?></p>
-                    <p><a href="login.php">Return to login page</a></p>
+                    <p style="color: white;"><?php echo $success;?></p>
+                    <p><a class="btn btn-danger" href="login.php">Return to login page</a></p>
                 <?php endif;?>
             </div>
         </div>

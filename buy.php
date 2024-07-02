@@ -30,12 +30,15 @@ if (isset($_SESSION['userid'])) {
     echo "Error: User ID is missing";
     exit;
 }
-  
+
+// Retrieve game price from database
+$result = pg_query($conn, "SELECT price FROM game WHERE gameid=$gameid");
+$gameprice = pg_fetch_result($result, 0, 0);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process the payment method selection
     $paymentmethod = $_POST["paymentmethod"];
-    $result = pg_query($conn, "SELECT price FROM game WHERE gameid=$gameid");
-    $amountpaid = pg_fetch_result($result, 0, 0);
+    $amountpaid = $gameprice; // Set amount paid to game price
     // Query to add game to library
     $query = "INSERT INTO \"Transaction\" (userid, gameid, purchasedate, amountpaid, paymentmethod) VALUES ($userid, $gameid, NOW(), $amountpaid, '$paymentmethod')";
     pg_query($conn, $query);
@@ -59,10 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class=" jumbotron full-color bg-dark">
-<div class="container bg-dark text-light">
+<div class="container bg-dark text-light mt-5">
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>?gameid=<?php echo $gameid; ?>" method="post">
       <h2>Payment Method</h2>
       <p>Please select a payment method:</p>
+      <p>Amount to be paid: $<?php echo number_format($gameprice, 2, '.', ','); ?></p>
       <label>
         <input type="radio" name="paymentmethod" value="Credit Card" checked>
         Credit Card
@@ -78,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Bank Transfer
       </label>
       <br>
-      <input type="submit" value="Proceed to Payment">
+      <input class="btn btn-danger" type="submit" value="Proceed to Payment">
     </form>
     </div>
     </div>

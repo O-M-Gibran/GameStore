@@ -29,6 +29,7 @@ $result = pg_query($conn, $query);
 <body>
   <div class="jumbotron vertical-center bg-dark">
     <div class="container d-flex justify-content-center ">
+    <a class="btn btn-danger" href="dashboard.php">LIBRARY</a>
       <div class="d-inline-flex  bg-secondary text-light p-3 rounded-4">
         <table class="table table-striped table-borderless table-dark">
           <thead>
@@ -50,7 +51,6 @@ $result = pg_query($conn, $query);
           </tr>
           <?php } ?>
         </table>
-        <button type="button" class="btn btn-primary"><a href="dashboard.php">BUY</a></button>
       </div>
     </div>
   </div>
