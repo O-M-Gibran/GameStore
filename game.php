@@ -52,7 +52,7 @@ if (pg_num_rows($result) > 0) {
         <div class=" jumbotron vertical-center bg-dark">
         <div class="container bg-dark">
             <h1 class="text-center text-light"><?php echo $row['title']; ?></h1>
-            <table class="table table-striped">
+            <table class="table table-striped table-dark">
                 <tr>
                     <th>Description</th>
                     <td><?php echo $row['description']; ?></td>

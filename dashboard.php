@@ -75,7 +75,7 @@ if (!$result) {
             <th>Purchase Date</th>
           </tr>
           <?php while ($row = pg_fetch_assoc($result)) {?>
-          <tr class="hasil-tabel" data-bs-toggle="modal" data-bs-target="#gameModal-<?php echo $row['gameid'];?>">
+          <tr data-bs-toggle="modal" data-bs-target="#gameModal-<?php echo $row['gameid'];?>">
             <td><?= $row['title']?></td>
             <td><?= $row['purchasedate']?></td>
           </tr>
@@ -108,6 +108,5 @@ if (!$result) {
 </html>
 
 <?php
-// Close the database connection
 pg_close($conn);
 ?>
